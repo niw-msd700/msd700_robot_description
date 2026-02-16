@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot name="msd700_blade" xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!-- ================= INCLUDE ================= -->
+    <xacro:include filename="$(find msd700_robot_description)/urdf/commons/msd700_wheel.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/urdf/commons/msd700_base.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/urdf/attachment/msd700_blade.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/urdf/gazebo/base_control_gazebo.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/urdf/gazebo/joint_state_gazebo.xacro"/>
+
+
+<!-- ================= BASE ================= -->
+    <link name="base_footprint"/>
+    <xacro:base name="base" parent="base_footprint" xyz="0 0 0.05" rpy="0 0 0"/>
+
+<!-- ================= WHEELS ================= -->
+    <xacro:wheel name="wheel_fl" parent="base_link" xyz="0.305 0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_fr" parent="base_link" xyz="0.305 -0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_rl" parent="base_link" xyz="-0.285 0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_rr" parent="base_link" xyz="-0.285 -0.30 0.065" rpy="0 0 0"/>
+
+<!-- ================= Blade ================= -->
+    <xacro:blade name="blade" parent="base_link" xyz="0.1 0 0.23" rpy="0 0 0"/>
+
+
+<!-- ================= SENSOR ================= -->
+    <joint name="sensor_box_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="sensor_box_link"/>
+        <origin xyz="0 0 0.23" rpy="0 0 0"/>
+    </joint>
+
+    <link name="sensor_box_link">
+        <visual>
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.6 0.4 0.15"/>
+            </geometry>
+            <material name="Gray">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.6 0.4 0.15"/>
+            </geometry>
+            <material name="Gray">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia
+                    ixx="${(1/12)*(0.4*0.4 + 0.15*0.15)}"   ixy="0.0" ixz="0.0" 
+                    iyy="${(1/12)*(0.6*0.6 + 0.15*0.15)}"   iyz="0.0" 
+                    izz="${(1/12)*(0.6*0.6 + 0.4*0.4)}"/>           
+        </inertial>
+    </link>
+
+
+</robot>
