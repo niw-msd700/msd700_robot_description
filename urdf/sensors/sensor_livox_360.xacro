@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- From MCLA015B spec -->
+    <xacro:property name="livox_weight"  value="0.265" />
+    <xacro:property name="livox_width"  value="0.065" />
+    <xacro:property name="livox_length"   value="0.065" />
+    <xacro:property name="livox_height"  value="0.060" />
+    <xacro:macro name="livox" params="
+        name
+        parent
+        xyz
+        rpy">
+
+        <!-- Joint -->
+        <joint name="${name}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${name}_link"/>
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+        </joint>
+
+        <!-- Link -->
+        <link name="${name}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 -${pi/2}"/>
+                <geometry>
+                    <mesh filename="package://msd700_robot_description/meshes/livox_360.dae"
+                        scale="1 1 1"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${livox_length} ${livox_width} ${livox_height}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="${livox_weight}"/>  
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <!-- the inertial matrix approximated as a box -->
+                <!-- https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
+                <inertia    
+                    ixx="${(livox_weight/12)*(livox_width*livox_width + livox_height*livox_height)}"   ixy="0.0" ixz="0.0" 
+                    iyy="${(livox_weight/12)*(livox_length*livox_length + livox_height*livox_height)}" iyz="0.0" 
+                    izz="${(livox_weight/12)*(livox_length*livox_length + livox_width*livox_width)}"/>            
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>
