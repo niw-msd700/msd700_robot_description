@@ -1,8 +1,8 @@
 <launch>
     <let name="urdf_path" 
-         value="$(find-pkg-share msd700_robot_description)/urdf/msd700_blade_description.urdf.xacro" />
+         value="$(find-pkg-share msd700_robot_description)/ROS1/urdf/msd700_blade_description.urdf.xacro" />
     <let name="rviz_config_path"
-         value="$(find-pkg-share msd700_robot_description)/rviz/msd700_blade.rviz" />
+         value="$(find-pkg-share msd700_robot_description)/ROS1/rviz/msd700_blade.rviz" />
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description"
