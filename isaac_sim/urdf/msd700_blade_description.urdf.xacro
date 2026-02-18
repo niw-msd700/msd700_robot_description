@@ -75,7 +75,4 @@
     </link>
 
     <xacro:livox name="livox" parent="sensor_box_link" xyz="-${(box_length/2)-(0.065/2)} -${(box_width/2)-(0.065/2)} ${box_height+0.060/2}" rpy="0 0 0"/>
-    <xacro:lidar_2d_plugin name="livox" topic="/scan"/>
-    <xacro:livox_imu_plugin name="livox"/>
-
 </robot>

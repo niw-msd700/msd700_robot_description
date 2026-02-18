@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 install(
-  DIRECTORY ROS2 
+  DIRECTORY ROS2 isaac_sim
   DESTINATION share/${PROJECT_NAME}
 )
 

@@ -1,6 +1,6 @@
 <launch>
     <let name="urdf_path" 
-         value="$(find-pkg-share msd700_robot_description)/ROS2/urdf/msd700_blade_description.urdf.xacro" />
+         value="$(find-pkg-share msd700_robot_description)/isaac_sim/urdf/msd700_blade_description.urdf.xacro" />
     <let name="rviz_config_path"
          value="$(find-pkg-share msd700_robot_description)/ROS2/rviz/msd700_blade.rviz" />
 
