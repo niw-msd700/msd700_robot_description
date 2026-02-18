@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- From MCLA015B spec -->
+    <xacro:property name="base_weight"  value="121.9" />
+    <xacro:property name="base_width"  value="0.47" />
+    <xacro:property name="base_length"   value="0.866" />
+    <xacro:property name="base_height"  value="0.271" />
+    <xacro:macro name="base" params="
+        name
+        parent
+        xyz
+        rpy">
+
+        <!-- Joint -->
+        <joint name="${name}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${name}_link"/>
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+        </joint>
+
+        <!-- Link -->
+        <link name="${name}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 ${pi/2}"/>
+                <geometry>
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/base_only.dae"
+                        scale="1 1 1"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0.1" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${base_length} ${base_width} ${base_height}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="${base_weight}"/>  
+                <origin xyz="0 0 0.1" rpy="0 0 0"/>
+                <!-- the inertial matrix approximated as a box -->
+                <!-- https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
+                <inertia    
+                    ixx="${(base_weight/12)*(base_width*base_width + base_height*base_height)}"   ixy="0.0" ixz="0.0" 
+                    iyy="${(base_weight/12)*(base_length*base_length + base_height*base_height)}" iyz="0.0" 
+                    izz="${(base_weight/12)*(base_length*base_length + base_width*base_width)}"/>            
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

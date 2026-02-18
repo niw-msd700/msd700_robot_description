@@ -23,7 +23,7 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 -${pi/2}"/>
                 <geometry>
-                    <mesh filename="package://msd700_robot_description/meshes/livox_360.dae"
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/livox_360.dae"
                         scale="1 1 1"/>
                 </geometry>
             </visual>

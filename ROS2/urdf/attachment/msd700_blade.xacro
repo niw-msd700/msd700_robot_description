@@ -26,7 +26,7 @@
             <visual>
                 <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
                 <geometry>
-                    <mesh filename="package://msd700_robot_description/meshes/blade_base.dae"
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/blade_base.dae"
                         scale="1 1 1"/>
                 </geometry>
                 <material name="Gray">
@@ -61,7 +61,7 @@
             <visual>
                 <origin xyz="-0.315 0 0" rpy="${pi/2} 0 ${pi/2}"/>
                 <geometry>
-                    <mesh filename="package://msd700_robot_description/meshes/blade.dae"
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/blade.dae"
                         scale="1 1 1"/>
                 </geometry>
                 <material name="Gray">
@@ -72,7 +72,7 @@
             <collision>
                 <origin xyz="-0.315 0 0" rpy="${pi/2} 0 ${pi/2}"/>
                 <geometry>
-                    <mesh filename="package://msd700_robot_description/meshes/blade.dae"
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/blade.dae"
                         scale="1 1 1"/>
                 </geometry>
             </collision>

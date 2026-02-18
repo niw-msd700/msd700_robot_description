@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- From MCLA015B spec -->
+    <xacro:property name="blade_weight"  value="5" />
+    <xacro:property name="blade_length"  value="0.06" />
+    <xacro:property name="blade_width"   value="0.700" />
+    <xacro:property name="blade_height"  value="0.255" />
+    <xacro:property name="blade_base_weight"  value="8" />
+    <xacro:property name="blade_base_length"  value="0.566" />
+    <xacro:property name="blade_base_width"   value="0.47" />
+    <xacro:property name="blade_base_height"  value="0.01" />
+
+    <xacro:macro name="blade" params="
+        name
+        parent
+        xyz
+        rpy">
+
+        <joint name="${name}_base_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${name}_base_link"/>
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+        </joint>
+
+        <link name="${name}_base_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+                <geometry>
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/blade_base.dae"
+                        scale="1 1 1"/>
+                </geometry>
+                <material name="Gray">
+                    <color rgba="0.7 0.7 0.7 1.0"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${blade_base_length} ${blade_base_width} ${blade_base_height}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="${blade_base_weight}"/>
+                <inertia   
+                    ixx="${(blade_base_weight/12)*(blade_base_width*blade_base_width + blade_base_height*blade_base_height)}"   ixy="0.0" ixz="0.0" 
+                    iyy="${(blade_base_weight/12)*(blade_base_length*blade_base_length + blade_base_height*blade_base_height)}" iyz="0.0" 
+                    izz="${(blade_base_weight/12)*(blade_base_length*blade_base_length + blade_base_width*blade_base_width)}"/>     
+            </inertial>
+        </link>
+
+        <joint name="${name}_joint" type="revolute">
+            <parent link="${name}_base_link"/>
+            <child link="${name}_link"/>
+            <origin xyz="0.32 0 0" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+            <limit lower="0.0" upper="-0.5" effort="0.0" velocity="0.0"/>
+        </joint>
+
+        <link name="${name}_link">
+            <visual>
+                <origin xyz="-0.315 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+                <geometry>
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/blade.dae"
+                        scale="1 1 1"/>
+                </geometry>
+                <material name="Gray">
+                    <color rgba="0.7 0.7 0.7 1.0"/>
+                </material>
+            </visual>
+
+            <collision>
+                <origin xyz="-0.315 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+                <geometry>
+                    <mesh filename="package://msd700_robot_description/ROS2/meshes/blade.dae"
+                        scale="1 1 1"/>
+                </geometry>
+            </collision>
+
+            <inertial>
+                <origin xyz="0.2 0 -0.12" rpy="0 0 0"/>
+                <mass value="${blade_weight}"/>
+                <inertia
+                    ixx="${(blade_weight/12)*(blade_width*blade_width + blade_height*blade_height)}"   ixy="0.0" ixz="0.0" 
+                    iyy="${(blade_weight/12)*(blade_length*blade_length + blade_height*blade_height)}" iyz="0.0" 
+                    izz="${(blade_weight/12)*(blade_length*blade_length + blade_width*blade_width)}"/>     
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

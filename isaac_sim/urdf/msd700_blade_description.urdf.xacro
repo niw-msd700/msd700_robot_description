@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<robot name="msd700_blade" xmlns:xacro="http://ros.org/wiki/xacro">
+
+<!-- ================= INCLUDE ================= -->
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/commons/msd700_wheel.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/commons/msd700_base_only.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/commons/msd700_track.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/attachment/msd700_blade.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/sensors/sensor_livox_360.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/base_control_gazebo.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/joint_state_gazebo.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/sensor_2d_lidar_gazebo.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/sensor_imu_gazebo.xacro"/>
+
+
+    <xacro:property name="box_weight"       value="0.85" />
+    <xacro:property name="box_width"        value="0.15" />
+    <xacro:property name="box_length"       value="0.3" />
+    <xacro:property name="box_height"       value="0.15" />
+
+
+    <xacro:property name="base_width"       value="0.47" />
+    <xacro:property name="base_length"      value="0.866" />
+    <xacro:property name="base_height"      value="0.271" />
+    
+<!-- ================= BASE ================= -->
+    <link name="base_footprint"/>
+    <xacro:base name="base" parent="base_footprint" xyz="0 0 0.05" rpy="0 0 0"/>
+
+<!-- ================= TRACK ================= -->
+    <xacro:track name="track_left"  parent="base_link" xyz="-0.285 0.30 0.065" rpy="0 0 0"/>
+    <xacro:track name="track_right" parent="base_link" xyz="-0.285 -0.30 0.065" rpy="0 0 0"/>
+
+<!-- ================= WHEELS ================= -->
+    <xacro:wheel name="wheel_fl" parent="base_link" xyz="0.305 0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_fr" parent="base_link" xyz="0.305 -0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_rl" parent="base_link" xyz="-0.285 0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_rr" parent="base_link" xyz="-0.285 -0.30 0.065" rpy="0 0 0"/>
+
+<!-- ================= Blade ================= -->
+    <xacro:blade name="blade" parent="base_link" xyz="0.1 0 0.23" rpy="0 0 0"/>
+
+
+<!-- ================= SENSOR ================= -->
+    <joint name="sensor_box_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="sensor_box_link"/>
+        <origin xyz="${0.433-(box_length/2)-0.2} ${0.205-(box_width/2)} 0.23" rpy="0 0 0"/>
+    </joint>
+
+    <link name="sensor_box_link">
+        <visual>
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+            <geometry>
+                <box size="${box_length} ${box_width} ${box_height}"/>
+            </geometry>
+            <material name="Gray">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="${0.433-(box_length/2)-0.2} ${0.205-(box_width/2)} 0.075" rpy="0 0 0"/>
+            <geometry>
+                <box size="${box_length} ${box_width} ${box_height}"/>
+            </geometry>
+            <material name="Gray">
+                <color rgba="0.7 0.7 0.7 1.0"/>
+            </material>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+            <mass value="${box_weight}"/>
+            <inertia
+                    ixx="${(box_weight/12)*(box_width*box_width + box_height*box_height)}"   ixy="0.0" ixz="0.0" 
+                    iyy="${(box_weight/12)*(box_length*box_length + box_height*box_height)}" iyz="0.0" 
+                    izz="${(box_weight/12)*(box_length*box_length + box_width*box_width)}"/>      
+        </inertial>
+    </link>
+
+    <xacro:livox name="livox" parent="sensor_box_link" xyz="-${(box_length/2)-(0.065/2)} -${(box_width/2)-(0.065/2)} ${box_height+0.060/2}" rpy="0 0 0"/>
+    <xacro:lidar_2d_plugin name="livox" topic="/scan"/>
+    <xacro:livox_imu_plugin name="livox"/>
+
+</robot>

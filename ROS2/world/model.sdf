@@ -21,7 +21,7 @@
       <collision name="ground">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
-          <mesh filename="package://msd700_robot_description/world/heightmap.dae"
+          <mesh filename="package://msd700_robot_description/ROS2/world/heightmap.dae"
               scale="1 1 1"/>
         </geometry>
       </collision>
@@ -30,7 +30,7 @@
         <cast_shadows>true</cast_shadows>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
-            <mesh filename="package://msd700_robot_description/world/heightmap.dae"
+            <mesh filename="package://msd700_robot_description/ROS2/world/heightmap.dae"
             scale="1 1 1"/>
         </geometry>
         <!-- For Gazebo Classic, you can use script -->

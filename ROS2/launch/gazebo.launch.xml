@@ -1,10 +1,10 @@
 <launch>
     <let name="urdf_path" 
-        value="$(find-pkg-share msd700_robot_description)/ROS1/urdf/msd700_blade_description.urdf.xacro" />
+        value="$(find-pkg-share msd700_robot_description)/ROS2/urdf/msd700_blade_description.urdf.xacro" />
     <let name="rviz_config_path"
-        value="$(find-pkg-share msd700_robot_description)/ROS1/rviz/msd700_blade.rviz" />
+        value="$(find-pkg-share msd700_robot_description)/ROS2/rviz/msd700_blade.rviz" />
     <let name="gazebo_config_path"
-        value="$(find-pkg-share msd700_robot_description)/ROS1/config/gazebo_bridge.yaml"/>
+        value="$(find-pkg-share msd700_robot_description)/ROS2/config/gazebo_bridge.yaml"/>
 
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description"
@@ -12,7 +12,7 @@
     </node>
 
     <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
-        <arg name="gz_args" value="$(find-pkg-share msd700_robot_description)/ROS1/world/sandy_world.sdf"/>
+        <arg name="gz_args" value="$(find-pkg-share msd700_robot_description)/ROS2/world/sandy_world.sdf"/>
         <!-- <arg name="gz_args" value="empty.sdf -r"/> -->
     </include>
 
