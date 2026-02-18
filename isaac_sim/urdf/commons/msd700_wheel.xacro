@@ -23,7 +23,7 @@
             <visual>
                 <origin xyz="${(wheel_diameter/2)-0.025} ${-(wheel_length/2)+0.01} ${-((wheel_diameter/2))+0.025}" rpy="0 0 ${pi/2}"/>
                 <geometry>
-                    <mesh filename="package://msd700_robot_description/ROS2/meshes/wheel.stl"
+                    <mesh filename="package://msd700_robot_description/isaac_sim/meshes/wheel.stl"
                             scale="0.001 0.001 0.001"/>
                 </geometry>
                 <material name="White">

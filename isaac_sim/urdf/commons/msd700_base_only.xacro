@@ -23,7 +23,7 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 ${pi/2}"/>
                 <geometry>
-                    <mesh filename="package://msd700_robot_description/ROS2/meshes/base_only.dae"
+                    <mesh filename="package://msd700_robot_description/isaac_sim/meshes/base_only.dae"
                         scale="1 1 1"/>
                 </geometry>
             </visual>

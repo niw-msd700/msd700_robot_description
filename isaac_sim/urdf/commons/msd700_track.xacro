@@ -23,7 +23,7 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
                 <geometry>
-                    <mesh filename="package://msd700_robot_description/ROS2/meshes/left_track.dae"
+                    <mesh filename="package://msd700_robot_description/isaac_sim/meshes/left_track.dae"
                         scale="1 1 1"/>
                 </geometry>
             </visual>

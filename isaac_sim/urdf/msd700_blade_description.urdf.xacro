@@ -2,16 +2,11 @@
 <robot name="msd700_blade" xmlns:xacro="http://ros.org/wiki/xacro">
 
 <!-- ================= INCLUDE ================= -->
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/commons/msd700_wheel.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/commons/msd700_base_only.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/commons/msd700_track.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/attachment/msd700_blade.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/sensors/sensor_livox_360.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/base_control_gazebo.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/joint_state_gazebo.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/sensor_2d_lidar_gazebo.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/ROS2/urdf/gazebo/sensor_imu_gazebo.xacro"/>
-
+    <xacro:include filename="$(find msd700_robot_description)/isaac_sim/urdf/commons/msd700_wheel.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/isaac_sim/urdf/commons/msd700_base_only.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/isaac_sim/urdf/commons/msd700_track.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/isaac_sim/urdf/attachment/msd700_blade.xacro"/>
+    <xacro:include filename="$(find msd700_robot_description)/isaac_sim/urdf/sensors/sensor_livox_360.xacro"/>
 
     <xacro:property name="box_weight"       value="0.85" />
     <xacro:property name="box_width"        value="0.15" />
