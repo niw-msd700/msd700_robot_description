@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 install(
-  DIRECTORY ROS2 isaac_sim
+  DIRECTORY config launch meshes rviz urdf world
   DESTINATION share/${PROJECT_NAME}
 )
 
