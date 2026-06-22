@@ -44,5 +44,44 @@
                     izz="${(livox_weight/12)*(livox_length*livox_length + livox_width*livox_width)}"/>            
             </inertial>
         </link>
+
+        <gazebo reference="${name}_link">
+            <sensor name="${name}_sensor" type="gpu_lidar">
+                <pose>0 0 0 0 0 0</pose>
+                <topic>/scan</topic>
+                <gz_frame_id>${name}_link</gz_frame_id>
+                <update_rate>10</update_rate>
+                <always_on>true</always_on>
+                <visualize>true</visualize>
+                <lidar>
+                    <scan>
+                        <horizontal>
+                            <!-- 360 degree horizontal -->
+                            <samples>360</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-3.14159</min_angle>
+                            <max_angle>3.14159</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <!-- 16 vertical channels, -15 to +15 degrees -->
+                            <samples>16</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-0.26180</min_angle>  <!-- -15 deg -->
+                            <max_angle>0.26180</max_angle>   <!-- +15 deg -->
+                        </vertical>
+                    </scan>
+                    <range>
+                        <min>0.1</min>
+                        <max>30.0</max>
+                        <resolution>0.01</resolution>
+                    </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </lidar>
+            </sensor>
+        </gazebo>
     </xacro:macro>
 </robot>
