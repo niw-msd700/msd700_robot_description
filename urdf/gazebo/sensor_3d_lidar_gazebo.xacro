@@ -1,32 +1,33 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:macro name="lidar_2d_plugin" params="link_reference topic">
+  <xacro:macro name="lidar_3d_plugin" params="link_reference topic">
 
     <gazebo reference="${link_reference}">
       <sensor name="${name}" type="gpu_lidar">
 
         <pose>0 0 0 0 0 0</pose>
+        <topic>${topic}</topic>
+        <gz_frame_id>${link_reference}</gz_frame_id>
         <update_rate>10</update_rate>
+        <always_on>true</always_on>
         <visualize>true</visualize>
 
-        <topic>${topic}</topic>
-
-        <ray>
+        <lidar>
           <scan>
             <horizontal>
-              <samples>720</samples>        <!-- resolution -->
+              <!-- 360 degree horizontal -->
+              <samples>360</samples>
               <resolution>1</resolution>
               <min_angle>-3.14159</min_angle>
               <max_angle>3.14159</max_angle>
             </horizontal>
-
-            <!-- 2D = vertical = 1 -->
             <vertical>
-              <samples>1</samples>
+              <!-- 16 vertical channels, -15 to +15 degrees -->
+              <samples>16</samples>
               <resolution>1</resolution>
-              <min_angle>0</min_angle>
-              <max_angle>0</max_angle>
+              <min_angle>-0.26180</min_angle>  <!-- -15 deg -->
+              <max_angle>0.26180</max_angle>   <!-- +15 deg -->
             </vertical>
           </scan>
 
@@ -41,7 +42,7 @@
             <mean>0.0</mean>
             <stddev>0.01</stddev>
           </noise>
-        </ray>
+        </lidar>
 
       </sensor>
     </gazebo>
