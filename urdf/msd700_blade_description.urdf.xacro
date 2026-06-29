@@ -10,8 +10,7 @@
     <xacro:include filename="$(find msd700_robot_description)/urdf/sensors/sensor_rplidar_a1.xacro"/>
     <xacro:include filename="$(find msd700_robot_description)/urdf/gazebo/base_control_gazebo.xacro"/>
     <xacro:include filename="$(find msd700_robot_description)/urdf/gazebo/joint_state_gazebo.xacro"/>
-    <!-- <xacro:include filename="$(find msd700_robot_description)/urdf/gazebo/sensor_2d_lidar_gazebo.xacro"/>
-    <xacro:include filename="$(find msd700_robot_description)/urdf/gazebo/sensor_imu_gazebo.xacro"/> -->
+    <xacro:include filename="$(find msd700_robot_description)/urdf/gazebo/sensor_imu_gazebo.xacro"/>
 
 
     <xacro:property name="box_weight"       value="0.85" />
@@ -81,7 +80,6 @@
     </link>
 
     <xacro:livox name="livox" parent="sensor_box_link" xyz="-${(box_length/2)-(0.065/2)} -${(box_width/2)-(0.065/2)} ${box_height+0.060/2}" rpy="0 0 0"/>
-    <!-- <xacro:lidar_2d_plugin name="livox" topic="/scan"/> -->
-    <!-- <xacro:livox_imu_plugin name="livox"/> -->
+    <xacro:livox_imu_plugin name="livox"/>
 
 </robot>

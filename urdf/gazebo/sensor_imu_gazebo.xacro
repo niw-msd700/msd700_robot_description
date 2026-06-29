@@ -1,16 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-
-  <!-- Gazebo Sim IMU Plugin -->
   <xacro:macro name="livox_imu_plugin" params="name">
 
     <gazebo reference="${name}_link">
 
       <sensor name="${name}_imu" type="imu">
+        <topic>/imu</topic> 
         <always_on>true</always_on>
         <update_rate>200</update_rate>
         <visualize>true</visualize>
-
         <imu>
           <angular_velocity>
             <x>
@@ -54,16 +52,11 @@
             </z>
           </linear_acceleration>
         </imu>
-
-        <!-- Gazebo Sim IMU system plugin -->
-        <plugin
-          filename="libgz-sim-imu-system.so"
-          name="gz::sim::systems::Imu"/>
-
       </sensor>
 
+      <plugin
+        filename="libgz-sim-imu-system.so"
+        name="gz::sim::systems::Imu"/>
     </gazebo>
-
   </xacro:macro>
-
 </robot>

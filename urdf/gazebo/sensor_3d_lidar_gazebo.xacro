@@ -24,7 +24,7 @@
             </horizontal>
             <vertical>
               <!-- 16 vertical channels, -15 to +15 degrees -->
-              <samples>16</samples>
+              <samples>256</samples>
               <resolution>1</resolution>
               <min_angle>-0.26180</min_angle>  <!-- -15 deg -->
               <max_angle>0.26180</max_angle>   <!-- +15 deg -->
