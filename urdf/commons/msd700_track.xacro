@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
     <!-- From MCLA015B spec -->
-    <xacro:property name="base_weight"  value="121.9" />
-    <xacro:property name="base_width"  value="0.47" />
-    <xacro:property name="base_length"   value="0.866" />
-    <xacro:property name="base_height"  value="0.271" />
+    <xacro:property name="track_weight"  value="1" />
+    <xacro:property name="track_width"  value="0.08" />
+    <xacro:property name="track_length"   value="0.866" />
+    <xacro:property name="track_height"  value="0.271" />
     <xacro:macro name="track" params="
         name
         parent
@@ -28,21 +28,19 @@
                 </geometry>
             </visual>
             <collision>
-                <origin xyz="0 0 0.1" rpy="0 0 0"/>
+                <origin xyz="${track_length/2-0.13} 0 0.01" rpy="0 0 0"/>
                 <geometry>
-                    <box size="${base_length} ${base_width} ${base_height}"/>
+                    <box size="${track_length} ${track_width} ${track_height}"/>
                 </geometry>
             </collision>
-            <inertial>
-                <mass value="${base_weight}"/>  
+            <!-- <inertial>
+                <mass value="${track_weight}"/>  
                 <origin xyz="0 0 0.1" rpy="0 0 0"/>
-                <!-- the inertial matrix approximated as a box -->
-                <!-- https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
                 <inertia    
-                    ixx="${(base_weight/12)*(base_width*base_width + base_height*base_height)}"   ixy="0.0" ixz="0.0" 
-                    iyy="${(base_weight/12)*(base_length*base_length + base_height*base_height)}" iyz="0.0" 
-                    izz="${(base_weight/12)*(base_length*base_length + base_width*base_width)}"/>            
-            </inertial>
+                    ixx="${(track_weight/12)*(track_width*track_width + track_height*track_height)}"   ixy="0.0" ixz="0.0" 
+                    iyy="${(track_weight/12)*(track_length*track_length + track_height*track_height)}" iyz="0.0" 
+                    izz="${(track_weight/12)*(track_length*track_length + track_width*track_width)}"/>            
+            </inertial> -->
         </link>
     </xacro:macro>
 </robot>
