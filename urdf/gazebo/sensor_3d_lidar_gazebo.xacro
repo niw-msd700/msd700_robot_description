@@ -24,23 +24,23 @@
             </horizontal>
             <vertical>
               <!-- 16 vertical channels, -15 to +15 degrees -->
-              <samples>256</samples>
+              <samples>64</samples>
               <resolution>1</resolution>
-              <min_angle>-0.26180</min_angle>  <!-- -15 deg -->
-              <max_angle>0.26180</max_angle>   <!-- +15 deg -->
+              <min_angle>-0.12217</min_angle>  <!-- -15 deg -->
+              <max_angle>0.90757</max_angle>   <!-- +15 deg -->
             </vertical>
           </scan>
 
           <range>
             <min>0.1</min>
-            <max>30.0</max>
-            <resolution>0.01</resolution>
+            <max>40.0</max>
+            <resolution>0.002</resolution>
           </range>
 
           <noise>
             <type>gaussian</type>
             <mean>0.0</mean>
-            <stddev>0.01</stddev>
+            <stddev>0.02</stddev>
           </noise>
         </lidar>
 
