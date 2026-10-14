@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!--
+[depth_camera.urdf.xacro]
+General depth camera xacro file. Modified to be a xacro macro.
+Reference: 
+- https://classic.gazebosim.org/tutorials?tut=ros_gzplugins (Main Reference)
+- https://articulatedrobotics.xyz/tutorials/mobile-robot/hardware/camera
+- https://robotics.stackexchange.com/questions/50722/how-to-use-libgazebo-ros-camera-so-in-gazebo-urdf
+
+xacro macro: <xacro:macro name="add_depth_camera" params="...">...</xacro:macro>
+This macro will add a depth camera. Attach the <prefix>_link to your robot with joint.
+-->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+
+    <xacro:macro name="add_rgbd_camera" params="parent_link prefix:='camera' xyz:='0 0 0' rpy:='0 0 0'">
+        <!-- Camera Base Link -->
+        <link name="${prefix}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.02 0.10 0.02"/>
+                </geometry>
+                <material name="grey">
+                    <color rgba="0.5 0.5 0.5 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.02 0.10 0.02"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.05"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+            </inertial>
+        </link>
+
+        <joint name="${prefix}_joint" type="fixed">
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+            <parent link="${parent_link}"/>
+            <child link="${prefix}_link"/>
+        </joint>
+
+        <!-- Gazebo Plugin for RGB-D Camera -->
+        <gazebo reference="${prefix}_link">
+            <sensor type="depth" name="${prefix}_sensor">
+                <always_on>true</always_on>
+                <update_rate>20.0</update_rate>
+                <camera name="${prefix}_rgbd">
+                <horizontal_fov>${69.4 * M_PI/180.0}</horizontal_fov>
+                <image>
+                    <width>640</width>
+                    <height>480</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.1</near>
+                    <far>10.0</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+                </camera>
+                <plugin name="${prefix}_plugin" filename="libgazebo_ros_openni_kinect.so">
+                <baseline>0.1</baseline>
+                <alwaysOn>true</alwaysOn>
+                <updateRate>20.0</updateRate>
+                <cameraName>${prefix}</cameraName>
+                <!-- RGB Stream -->
+                <imageTopicName>color/image_raw</imageTopicName>
+                <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+                <!-- Depth Stream -->
+                <depthImageTopicName>depth/image_rect_raw</depthImageTopicName>
+                <depthImageInfoTopicName>depth/camera_info</depthImageInfoTopicName>
+                <!-- Point Cloud -->
+                <pointCloudTopicName>/msd700/sensors/realsense/depth/color/points</pointCloudTopicName>
+                <pointCloudCutoff>0.15</pointCloudCutoff>
+                <frameName>${prefix}_depth_optical_frame</frameName>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+        <!-- IMU -->
+        <link name="${prefix}_imu_link" />
+        <joint name="${prefix}_imu_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <parent link="${prefix}_link"/>
+            <child link="${prefix}_imu_link"/>
+        </joint>
+        <gazebo reference="${prefix}_imu_link">
+            <sensor type="imu" name="${prefix}_imu_sensor">
+                <always_on>true</always_on>
+                <update_rate>100.0</update_rate>
+                <visualize>true</visualize>
+                <plugin name="${prefix}_imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+                    <topicName>sensors/realsense/imu</topicName>
+                    <frameName>${prefix}_imu_link</frameName>
+                    <updateRateHZ>1.0</updateRateHZ>
+                    <gaussianNoise>0.0</gaussianNoise>
+                    <xyzOffset>0 0 0</xyzOffset>
+                    <rpyOffset>0 0 0</rpyOffset>
+                    <initialOrientationAsReference>false</initialOrientationAsReference>
+                </plugin>
+                <pose>0 0 0 0 0 0</pose>
+            </sensor>
+        </gazebo>
+
+        <!-- Optical frames (for TF compatibility with ROS drivers) -->
+        <link name="${prefix}_rgb_optical_frame" />
+        <joint name="${prefix}_rgb_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+            <parent link="${prefix}_link" />
+            <child link="${prefix}_rgb_optical_frame" />
+        </joint>
+
+        <link name="${prefix}_depth_optical_frame" />
+        <joint name="${prefix}_depth_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+            <parent link="${prefix}_link" />
+            <child link="${prefix}_depth_optical_frame" />
+        </joint>
+    </xacro:macro>
+</robot>

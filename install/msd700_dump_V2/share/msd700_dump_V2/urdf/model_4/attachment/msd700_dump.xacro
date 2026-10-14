@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- Dimensions measured from the solid works-->
+    <xacro:property name="dump_weight"  value="50" />   <!-- from the mass properties in SW -->
+    <xacro:property name="dump_length"  value="0.805" />
+    <xacro:property name="dump_width"   value="0.693" />
+    <xacro:property name="dump_height"  value="0.405" />
+
+    <!-- the SW models uses Y-up model but in the Rviz uses the Z-up model -->
+    <xacro:macro name="dump" params="
+        name
+        parent
+        xyz
+        rpy">
+
+        <joint name="${name}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${name}_link"/>
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+        </joint>
+
+        <link name="${name}_link">
+            <visual>
+                <origin xyz="0.4059 0.35 0" rpy="${pi/2} 0 -${pi/2}"/>
+                <geometry>
+                    <mesh filename="package://msd700_dump_V2/meshes/MCLA021A_dump_only.STL"
+                        scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="DumpYellow">
+                    <color rgba="0.95 0.75 0.1 1.0"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 ${dump_height/2+0.02}" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${dump_length} ${dump_width} ${dump_height}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 ${dump_height/2}" rpy="0 0 0"/>
+                <mass value="${dump_weight}"/>
+                <!-- the inertial matrix approximated as a box -->
+                <inertia
+                    ixx="${(dump_weight/12)*(dump_width*dump_width + dump_height*dump_height)}"   ixy="0.0" ixz="0.0"
+                    iyy="${(dump_weight/12)*(dump_length*dump_length + dump_height*dump_height)}" iyz="0.0"
+                    izz="${(dump_weight/12)*(dump_length*dump_length + dump_width*dump_width)}"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

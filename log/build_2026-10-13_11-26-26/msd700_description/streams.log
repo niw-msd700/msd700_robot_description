@@ -1,0 +1,1 @@
+[0.035s] Invoking command in '/home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/build/msd700_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/build/msd700_description -- -j12 -l12

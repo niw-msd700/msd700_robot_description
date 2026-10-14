@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="msd700_prototype">
+<!-- ================= Config ================= -->
+    <!-- Configuration file -->
+    <xacro:arg      name="config_file"      default="$(find msd700_dump_V2)/config/msd700_xacro_config.yaml"/>
+    <xacro:property name="config_file_"      value="$(arg config_file)"/>
+    <!-- <xacro:property name="config_file"      value="$(find msd700_blade)/config/msd700_xacro_without_arm.yaml"/> -->
+    <xacro:property name="config"           value="${xacro.load_yaml(config_file_)}"/>
+
+    <xacro:property name="chassis_length"   value="${config['chassis_length']}"/>
+    <xacro:property name="chassis_width"    value="${config['chassis_width']}"/>
+    <xacro:property name="chassis_height"   value="${config['chassis_height']}"/>
+
+    <!-- Wheel Property -->
+    <xacro:property name="wheel_radius"     value="${config['wheel_radius']}"/>
+    <xacro:property name="wheel_width"      value="${config['wheel_width']}"/>
+
+    <!-- Sensor Properties -->
+    <xacro:property name="offset_x_lidar"   value="${config['offset_x_lidar']}"/>
+    <xacro:property name="offset_y_lidar"   value="${config['offset_y_lidar']}"/>
+    <xacro:property name="offset_z_lidar"   value="${config['offset_z_lidar']}"/>
+    <xacro:property name="offset_x_camera"  value="${config['offset_x_camera']}"/>
+    <xacro:property name="offset_y_camera"  value="${config['offset_y_camera']}"/>
+    <xacro:property name="offset_z_camera"  value="${config['offset_z_camera']}"/>
+
+    <!-- Misc -->
+    <xacro:property name="with_arm"         value="${config['with_arm']}"/>
+    <xacro:property name="model_simple"     value="${config['model_simple']}"/>
+
+    <!-- Scoop properties --><!-- Scoop geometry -->
+    <xacro:property name="scoop_rect_height" value="0.20"/>
+    <xacro:property name="scoop_tri_height"  value="0.05"/>
+    <xacro:property name="scoop_width"       value="${chassis_width + 0.2}"/>
+    <xacro:property name="scoop_depth"       value="0.165"/>  <!-- front-back thickness -->
+    <xacro:property name="scoop_layers"      value="3"/>
+
+
+    <!-- Includes -->
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/common/inertials.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/common/materials.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/common/wheel.urdf.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/sensors/2d_lidar.urdf.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/sensors/imu.urdf.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/sensors/depth_camera.urdf.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/control/scoop_control.xacro"/>
+
+<!-- ================= Body ================= -->
+    <link name="base_footprint" />
+
+    <joint name="base_to_chassis_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="base_footprint"/>
+        <child link="chassis_link"/>
+    </joint>
+
+    <link name="chassis_link">
+        <xacro:if value="${model_simple}">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+                </geometry>
+                <material name="grey"/>
+            </visual>
+        </xacro:if>
+        <xacro:unless value="${model_simple}">
+            <visual>
+                <xacro:if value="${with_arm}">
+                    <origin xyz="-0.52 -0.478 -0.29" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://msd700_dump_V2/meshes/msd700_with_arm.stl" scale="0.001 0.001 0.001" />
+                    </geometry>
+                </xacro:if>
+                <xacro:unless value="${with_arm}">
+                    <origin xyz="-0.15 -0.1 -0.092" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://msd700_dump_V2/meshes/msd700_without_arm.stl" scale="0.001 0.001 0.001" />
+                    </geometry>
+                </xacro:unless>
+                <material name="grey"/>
+            </visual>
+        </xacro:unless>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+            </geometry>
+        </collision>
+        <xacro:box_inertial m="1" w="${chassis_width}" l="${chassis_length}" d="${chassis_height}" xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+
+    <gazebo reference="chassis_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+<!-- ================= Wheel ================= -->
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_2/control/msd700_prototype_mid_control.xacro"/>
+
+    <xacro:add_caster_wheel prefix="fl_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="${chassis_length/2} ${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+    <xacro:add_caster_wheel prefix="fr_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="${chassis_length/2} -${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+    <xacro:add_wheel        prefix="ml_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="0 ${chassis_width/2 + wheel_width/2} -${chassis_height/2 + 0.00005}" parent="chassis_link"/>
+    <xacro:add_wheel        prefix="mr_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="0 -${chassis_width/2 + wheel_width/2} -${chassis_height/2 + 0.00005}" parent="chassis_link"/>
+    <xacro:add_caster_wheel prefix="bl_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="-${chassis_length/2} ${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+    <xacro:add_caster_wheel prefix="br_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="-${chassis_length/2} -${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+
+<!-- ================= Sensors ================= -->
+    <xacro:add_2d_lidar prefix="lidar" topic="sensors/scan" parent="chassis_link" x="${offset_x_lidar}" y="${offset_y_lidar}" z="${offset_z_lidar + chassis_height/2}" rpy="0 0 0"/>
+    <xacro:add_rgbd_camera parent_link="base_footprint" prefix="sensors/realsense" xyz="${offset_x_camera + chassis_length/2} 0 ${offset_z_camera + chassis_height/2}" rpy="0 0 0"/>
+
+
+<!-- ================= Scoop ================= -->
+    <!-- Horizontal arm that connects chassis to scoop - this rotates -->
+    <joint name="scoop_joint" type="revolute">
+        <origin
+            xyz="${chassis_length/2} 0 -${chassis_height/2 - 0.1}"
+            rpy="0 0 0"/>
+        <parent link="chassis_link"/>
+        <child link="scoop_arm_link"/>
+        <axis xyz="0 1 0"/>
+        <limit lower="-0.524" upper="0.0" effort="100.0" velocity="0.5"/>
+        <dynamics damping="1.0" friction="0.5"/>
+    </joint>
+
+    <!-- The horizontal arm that rotates -->
+    <link name="scoop_arm_link">
+        <visual>
+            <origin xyz="0.10 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.2 0.05 0.05"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+        <collision>
+            <origin xyz="0.10 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.2 0.05 0.05"/>
+            </geometry>
+        </collision>
+        <xacro:box_inertial m="0.005" l="0.3" w="0.05" d="0.05" xyz="0.15 0 0" rpy="0 0 0"/>
+    </link>
+
+    <!-- Fixed joint from arm to scoop -->
+    <joint name="scoop_arm_to_scoop_joint" type="fixed">
+        <origin xyz="0.35 0 -${scoop_rect_height/2 + 0.015}" rpy="0 0 0"/>
+        <parent link="scoop_arm_link"/>
+        <child link="scoop_link"/>
+    </joint>
+
+    <!-- The actual scoop -->
+    <link name="scoop_link">
+
+        <!-- ===== BACK RECTANGLE ===== -->
+        <visual>
+            <origin xyz="-0.15 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.05 ${scoop_width} ${scoop_rect_height}"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+
+        <collision>
+            <origin xyz="-0.15 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.05 ${scoop_width} ${scoop_rect_height}"/>
+            </geometry>
+        </collision>
+
+        <!-- ===== GUARD RECTANGLE ===== -->
+        <visual>
+            <origin xyz="-0.05 ${scoop_width/2} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.15 0.01 ${scoop_rect_height}"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+
+        <collision>
+            <origin xyz="-0.05 ${scoop_width/2} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.15 0.01 ${scoop_rect_height}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="-0.05 -${scoop_width/2} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.15 0.01 ${scoop_rect_height}"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+
+        <collision>
+            <origin xyz="-0.05 -${scoop_width/2} 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.15 0.01 ${scoop_rect_height}"/>
+            </geometry>
+        </collision>
+
+        <xacro:box_inertial
+            m="0.001"
+            l="0.20"
+            w="${scoop_width}"
+            d="${scoop_rect_height}"
+            xyz="0 0 0"
+            rpy="0 0 0"/>
+    </link>
+
+
+</robot>

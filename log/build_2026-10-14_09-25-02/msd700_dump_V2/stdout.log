@@ -1,0 +1,104 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (1.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/build/msd700_dump_V2
+-- Install configuration: ""
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/config
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/config/msd700_xacro_config.yaml
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/config/rviz
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/config/rviz/display.rviz
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/launch
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/launch/display.launch.py
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/wheel.stl
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/rplidar.dae
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/body_track.dae
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/blade.dae
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/body_track.stl
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/base_only.dae
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/left_track.dae
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/msd700_without_arm.stl
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/blade_base.dae
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/msd700_with_arm.stl
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/livox_360.dae
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/meshes/MCLA021A_dump_only.STL
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/msd700_prototype.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/wheel.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/msd700_track.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/msd700_base_only.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/inertials.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/msd700_wheel.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/msd700_base.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/materials.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/common/msd700_base_stl.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/attachment
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/attachment/msd700_blade.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/sensors
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/sensors/2d_lidar.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/sensors/depth_camera.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/sensors/sensor_livox_360.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/sensors/imu.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/control
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/control/msd700_prototype_mid_control.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_3/control/msd700_prototype_control.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/msd700_prototype_mid.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/common
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/common/wheel.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/common/inertials.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/common/materials.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/sensors
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/sensors/2d_lidar.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/sensors/depth_camera.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/sensors/sensor_livox_360.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/sensors/imu.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/control
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/control/scoop_control.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_2/control/msd700_prototype_mid_control.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_4
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_4/common
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_4/common/msd700_wheel.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_4/common/msd700_base_stl.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_4/attachment
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_4/attachment/msd700_dump.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_4/msd700_dump_description.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/common
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/common/msd700_wheel.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/common/msd700_base_stl.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/attachment
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/attachment/msd700_blade.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/msd700_blade_description.urdf.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/sensors
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/urdf/model_1/sensors/sensor_livox_360.xacro
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/ament_index/resource_index/package_run_dependencies/msd700_dump_V2
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/ament_index/resource_index/parent_prefix_path/msd700_dump_V2
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/environment/ament_prefix_path.sh
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/environment/ament_prefix_path.dsv
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/environment/path.sh
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/environment/path.dsv
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/local_setup.bash
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/local_setup.sh
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/local_setup.zsh
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/local_setup.dsv
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/package.dsv
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/ament_index/resource_index/packages/msd700_dump_V2
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/cmake/msd700_dump_V2Config.cmake
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/cmake/msd700_dump_V2Config-version.cmake
+-- Installing: /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/install/msd700_dump_V2/share/msd700_dump_V2/package.xml

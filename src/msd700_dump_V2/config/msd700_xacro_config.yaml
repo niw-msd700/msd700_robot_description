@@ -1,0 +1,19 @@
+# msd700_xacro_with_arm.yaml
+# only for visual and simulation
+chassis_length: 0.845 # 0.3
+chassis_width: 0.7 # 0.2
+chassis_height: 0.42 # 0.184
+
+wheel_radius: 0.125 # 0.054
+wheel_width: 0.1 # 0.02
+
+offset_x_lidar: 0.25 # 0.07
+offset_y_lidar: 0.0 # 0.05
+offset_z_lidar: 0.0
+
+offset_x_camera: 0.0
+offset_y_camera: 0.0
+offset_z_camera: 0.0
+
+model_simple: true # false
+with_arm: false # true

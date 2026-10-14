@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="msd700_prototype">
+    <!-- Configuration file -->
+    <xacro:arg      name="config_file"      default="$(find msd700_dump_V2)/config/msd700_xacro_config.yaml"/>
+    <xacro:property name="config_file_"      value="$(arg config_file)"/>
+    <!-- <xacro:property name="config_file"      value="$(find msd700_dump_V2)/config/msd700_xacro_without_arm.yaml"/> -->
+    <xacro:property name="config"           value="${xacro.load_yaml(config_file_)}"/>
+
+    <xacro:property name="chassis_length"   value="${config['chassis_length']}"/>
+    <xacro:property name="chassis_width"    value="${config['chassis_width']}"/>
+    <xacro:property name="chassis_height"   value="${config['chassis_height']}"/>
+
+    <!-- Wheel Property -->
+    <xacro:property name="wheel_radius"     value="${config['wheel_radius']}"/>
+    <xacro:property name="wheel_width"      value="${config['wheel_width']}"/>
+
+    <!-- Sensor Properties -->
+    <xacro:property name="offset_x_lidar"   value="${config['offset_x_lidar']}"/>
+    <xacro:property name="offset_y_lidar"   value="${config['offset_y_lidar']}"/>
+    <xacro:property name="offset_z_lidar"   value="${config['offset_z_lidar']}"/>
+    <xacro:property name="offset_x_camera"  value="${config['offset_x_camera']}"/>
+    <xacro:property name="offset_y_camera"  value="${config['offset_y_camera']}"/>
+    <xacro:property name="offset_z_camera"  value="${config['offset_z_camera']}"/>
+
+    <!-- Misc -->
+    <xacro:property name="with_arm"         value="${config['with_arm']}"/>
+    <xacro:property name="model_simple"     value="${config['model_simple']}"/>
+
+    <!-- Includes -->
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_3/common/inertials.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_3/common/materials.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_3/common/wheel.urdf.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_3/sensors/2d_lidar.urdf.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_3/sensors/imu.urdf.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_3/sensors/depth_camera.urdf.xacro"/>
+
+    <link name="base_link" />
+
+    <joint name="base_to_chassis_joint" type="fixed">
+        <origin xyz="0 0 1" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="chassis_link"/>
+    </joint>
+
+    <link name="chassis_link">
+        <xacro:if value="${model_simple}">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+                </geometry>
+                <material name="grey"/>
+            </visual>
+        </xacro:if>
+        <xacro:unless value="${model_simple}">
+            <visual>
+                <xacro:if value="${with_arm}">
+                    <origin xyz="-0.52 -0.478 -0.29" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://msd700_dump_V2/meshes/msd700_with_arm.stl" scale="0.001 0.001 0.001" />
+                    </geometry>
+                </xacro:if>
+                <xacro:unless value="${with_arm}">
+                    <origin xyz="-0.15 -0.1 -0.092" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://msd700_dump_V2/meshes/msd700_without_arm.stl" scale="0.001 0.001 0.001" />
+                    </geometry>
+                </xacro:unless>
+                <material name="grey"/>
+            </visual>
+        </xacro:unless>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+            </geometry>
+        </collision>
+        <xacro:box_inertial m="1" w="${chassis_width}" l="${chassis_length}" d="${chassis_height}" xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+
+    <gazebo reference="chassis_link">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_3/control/msd700_prototype_control.xacro"/>
+
+    <xacro:add_wheel prefix="bl_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="-${chassis_length/2} ${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+    <xacro:add_wheel prefix="br_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="-${chassis_length/2} -${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+    <xacro:add_caster_wheel prefix="fl_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="${chassis_length/2} ${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+    <xacro:add_caster_wheel prefix="fr_wheel" radius="${wheel_radius}" thickness="${wheel_width}" xyz="${chassis_length/2} -${chassis_width/2 + wheel_width/2} -${chassis_height/2}" parent="chassis_link"/>
+
+    <xacro:add_2d_lidar prefix="lidar" topic="sensors/scan" parent="chassis_link" x="${offset_x_lidar}" y="${offset_y_lidar}" z="${offset_z_lidar + chassis_height/2}" rpy="0 0 0"/>
+    <xacro:add_rgbd_camera parent_link="base_link" prefix="sensors/realsense" xyz="${offset_x_camera + chassis_length/2} 0 ${offset_z_camera + chassis_height/2}" rpy="0 0 0"/>
+
+    <!-- ============================================================ -->
+    <!-- e1r_lidar: front-facing lidar (TODO: tune xyz values)        -->
+    <!-- ============================================================ -->
+    <!-- <link name="e1r_lidar"/>
+
+    <joint name="chassis_to_e1r_lidar" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="e1r_lidar"/>
+        <origin xyz="${chassis_length/2} 0 ${offset_z_lidar + chassis_height/2}" rpy="0 0 0"/>
+    </joint> -->
+
+    <!-- ============================================================ -->
+    <!-- airy_lidar: rear-facing lidar (TODO: tune xyz values)        -->
+    <!-- ============================================================ -->
+    <!-- <link name="airy_lidar"/>
+
+    <joint name="chassis_to_airy_lidar" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="airy_lidar"/>
+        <origin xyz="-${chassis_length/2} 0 ${offset_z_lidar + chassis_height/2}" rpy="0 0 3.14159"/>
+    </joint> -->
+
+</robot>

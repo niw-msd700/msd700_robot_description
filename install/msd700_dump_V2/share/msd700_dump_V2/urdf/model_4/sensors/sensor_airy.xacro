@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- RoboSense Airy lidar (MCLA022A_Airy_LIDAR.STL, includes the mount plate and bracket) -->
+    <!-- Head dimensions measured from the STL -->
+    <xacro:property name="airy_weight"  value="0.35" />   <!-- TODO: real mass -->
+    <xacro:property name="airy_length"  value="0.106" />
+    <xacro:property name="airy_width"   value="0.100" />
+    <xacro:property name="airy_height"  value="0.094" />
+
+    <!-- The link origin is the centre of the lidar head.
+         The STL origin is not at the head, so the visual is shifted back to it.
+         Use the link name as the driver frame_id (lidar_airy.yaml: ros_frame_id). -->
+    <xacro:macro name="airy" params="
+        name
+        parent
+        xyz
+        rpy">
+
+        <joint name="${name}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${name}"/>
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+        </joint>
+
+        <link name="${name}">
+            <visual>
+                <origin xyz="0.095 0.3303 0.3928" rpy="-${pi/2} 0 ${pi}"/>
+                <geometry>
+                    <mesh filename="package://msd700_dump_V2/meshes/MCLA022A_Airy_LIDAR.STL"
+                        scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="NavyBlue">
+                    <color rgba="0.0 0.0 0.5 1.0"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${airy_length} ${airy_width} ${airy_height}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <mass value="${airy_weight}"/>
+                <!-- the inertial matrix approximated as a box -->
+                <inertia
+                    ixx="${(airy_weight/12)*(airy_width*airy_width + airy_height*airy_height)}"   ixy="0.0" ixz="0.0"
+                    iyy="${(airy_weight/12)*(airy_length*airy_length + airy_height*airy_height)}" iyz="0.0"
+                    izz="${(airy_weight/12)*(airy_length*airy_length + airy_width*airy_width)}"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

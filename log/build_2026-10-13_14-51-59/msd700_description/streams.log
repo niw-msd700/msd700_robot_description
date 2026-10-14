@@ -1,0 +1,5 @@
+[0.023s] Invoking command in '/home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/build/msd700_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/build/msd700_description -- -j12 -l12
+[0.085s] CMake Error: The source directory "/home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/src/msd700_description" does not exist.
+[0.085s] Specify --help for usage, or press the help button on the CMake GUI.
+[0.089s] gmake: *** [Makefile:226: cmake_check_build_system] Error 1
+[0.092s] Invoked command in '/home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/build/msd700_description' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/habibie/Documents/ROS2_workContainer/msd700_dump_ws/build/msd700_description -- -j12 -l12

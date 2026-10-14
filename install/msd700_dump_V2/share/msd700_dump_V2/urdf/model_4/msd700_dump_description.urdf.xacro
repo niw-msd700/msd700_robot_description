@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot name="msd700_dump" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_4/common/msd700_wheel.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_4/common/msd700_base_stl.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_4/attachment/msd700_dump.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_4/sensors/sensor_e1r.xacro"/>
+    <xacro:include filename="$(find msd700_dump_V2)/urdf/model_4/sensors/sensor_airy.xacro"/>
+
+    
+    <xacro:property name="base_top_z" value="0.2246" />
+
+<!-- BASE  -->
+    <link name="base_footprint"/>
+    <xacro:base name="base" parent="base_footprint" xyz="0 0 0.05" rpy="0 0 0"/>
+
+<!-- for the WHEELS -->
+    <xacro:wheel name="wheel_fl" parent="base_link" xyz="0.305 0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_fr" parent="base_link" xyz="0.305 -0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_rl" parent="base_link" xyz="-0.285 0.30 0.065" rpy="0 0 0"/>
+    <xacro:wheel name="wheel_rr" parent="base_link" xyz="-0.285 -0.30 0.065" rpy="0 0 0"/>
+
+<!-- for the Dump section -->
+    <xacro:dump name="dump" parent="base_link" xyz="0.02 0 ${base_top_z}" rpy="0 0 0"/>
+
+<!-- Sensor section -->
+    <!-- E1R -->
+    <xacro:e1r name="e1r_lidar" parent="base_link" xyz="0.429 0 ${base_top_z + 0.33}" rpy="${pi} ${pi} ${pi}"/>
+
+    <!-- Airy sensor -->
+    <xacro:airy name="airy_lidar" parent="base_link" xyz="-0.35 -0.095 0.39" rpy="${pi} 0 ${pi/2}"/>
+
+</robot>
